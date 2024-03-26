@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { findAll, findById, create } from './usuario/usuario.service';
+import { findAll, findById, create, update, adminFalse } from './usuario/usuario.service';
 
 export const router = express.Router();
 
@@ -13,4 +13,12 @@ router.route('/usuario/:id').get(async (req: Request, res: Response) => {
 
 router.route('/usuario').post(async (req: Request, res: Response) => {
     res.send(await create(req.body));
+})
+
+router.route('/usuario').put(async (req: Request, res: Response ) => {
+    res.send(await update(req.body));
+})
+
+router.route('/usuario/:id').patch(async (req: Request, res: Response) => {
+    res.send(await adminFalse(+req.params.id));
 })
